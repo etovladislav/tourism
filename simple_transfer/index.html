@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDFAidElPqrilh4tm_KuzqXKtM3D8eMpY&callback=initMap&libraries=places"
+        async defer></script>
+<script lang="javascript" src="js/xls.js"></script>
+<script>
+    var input = [
+        {
+            hotel: "WORABURI  PHUKET RESORT & SPA",
+            numberOfPeople: 2
+        },
+        {
+            hotel: "SUGAR PALM GRAND HILLSIDE",
+            numberOfPeople: 5
+
+        },
+        {
+            hotel: "PHUKET ISLAND VIEW",
+            numberOfPeople: 3
+
+        },
+        {
+            hotel: "NAITHONBURI RESORT",
+            numberOfPeople: 6
+
+        },
+        {
+            hotel: "NAI YANG BEACH RESORT",
+            numberOfPeople: 4
+
+        },
+        {
+            hotel: "CHANALAI HILLSIDE RESORT",
+            numberOfPeople: 2
+
+        },
+        {
+            hotel: "CENTARA KATA RESORT PHUKET",
+            numberOfPeople: 2
+
+        }
+    ];
+
+    var airportLocation = {
+        lat: 8.111195,
+        lng: 98.306824
+    }
+    var map;
+    var service;
+    var infowindow;
+    function initMap() {
+        //center of a Phucket
+        var phucket = new google.maps.LatLng(7.949229, 98.337);
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: phucket,
+            zoom: 12
+        });
+        infoWindow = new google.maps.InfoWindow();
+        service = new google.maps.places.PlacesService(map);
+        for (var i = 0; i < input.length; i++) {
+            var request = {
+                location: phucket,
+                query: input[i].hotel,
+            };
+            search(request, input[i].numberOfPeople);
+        }
+    }
+    function search(request, numberOfPeople) {
+        countOfPeople += numberOfPeople;
+        service.textSearch(request, function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    addMarker(results[i], numberOfPeople);
+                }
+            }
+        });
+    }
+    var places = [];
+    function addMarker(place, numberOfPeople) {
+        places.push({
+            place: place,
+            numberOfPeople: numberOfPeople
+        });
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            icon: {
+                url: 'http://maps.gstatic.com/mapfiles/circle.png',
+                anchor: new google.maps.Point(10, 10),
+                scaledSize: new google.maps.Size(10, 17)
+            },
+            numberOfPeople: numberOfPeople
+
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            service.getDetails(place, function (result, status) {
+                if (status !== google.maps.places.PlacesServiceStatus.OK) {
+                    console.error(status);
+                    return;
+                }
+                infoWindow.setContent(result.name + "<br/>" + "Number of a people: " + marker.numberOfPeople);
+                infoWindow.open(map, marker);
+            });
+        });
+    }
+
+
+</script>
+
+</body>
+</html>
+
