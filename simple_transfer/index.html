@@ -1,117 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://use.fontawesome.com/c4f9faf280.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div id="map"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDFAidElPqrilh4tm_KuzqXKtM3D8eMpY&callback=initMap&libraries=places"
+<div id="wrapper">
+    <div id="sidebar-wrapper">
+        <div class="information">
+            <p class="head">
+                <a data-toggle="collapse" data-parent="#accordion" href="#info" class="collapse-href">
+                    Info</a>
+            </p>
+            <div id="info" class="collapse in collapse-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <strong>Number of hotels:</strong>
+                        <span class="badge" id="number-of-hotels">3</span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <strong>Number of people:</strong>
+                        <span class="badge" id="number-of-people">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hotels">
+            <p class="head">
+                <a data-toggle="collapse" data-parent="#accordion" href="#hotels" class="collapse-href">
+                    Hotels</a>
+            </p>
+            <div id="hotels" class="collapse collapse-body">
+                <div class="list-group" id="hotel-list">
+                </div>
+            </div>
+        </div>
+        <div class="transfer">
+            <p class="head">
+                <a data-toggle="collapse" data-parent="#accordion" href="#transfer" class="collapse-href">
+                    Transfer</a>
+            </p>
+            <div id="transfer" class="collapse in collapse-body">
+                <div class="form-group">
+                    <label for="transport-capacity">Transport capacity</label>
+                    <input type="number" class="form-control" id="transport-capacity" placeholder="Enter capacity">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default btn-block" id="add-transport">+ Add transport</button>
+                </div>
+                <div class="list-group" id="transport-list">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="page-content-wrapper" class="height100">
+        <div class="container-fluid height100">
+            <div class="row height100">
+                <div class="col-lg-12 map height100">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Agent name</th>
+                            <th>Gid name</th>
+                            <th>Room number</th>
+                            <th>FIO</th>
+                            <th>phone</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-clients">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="modal-similar-hotels" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Similar hotels</h4>
+            </div>
+            <div class="modal-body" id="modal-similar-hotels-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="similar-hotels-save" class="btn btn-default">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/xls.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHmkO3WMcgF5kXLxwdgukgiL1w0Fi-j-M&libraries=places"
         async defer></script>
-<script lang="javascript" src="js/xls.js"></script>
+<!-- Map -->
+<script src="js/transfer.js"></script>
+<!-- Menu Toggle Script -->
 <script>
-    var input = [
-        {
-            hotel: "WORABURI  PHUKET RESORT & SPA",
-            numberOfPeople: 2
-        },
-        {
-            hotel: "SUGAR PALM GRAND HILLSIDE",
-            numberOfPeople: 5
-
-        },
-        {
-            hotel: "PHUKET ISLAND VIEW",
-            numberOfPeople: 3
-
-        },
-        {
-            hotel: "NAITHONBURI RESORT",
-            numberOfPeople: 6
-
-        },
-        {
-            hotel: "NAI YANG BEACH RESORT",
-            numberOfPeople: 4
-
-        },
-        {
-            hotel: "CHANALAI HILLSIDE RESORT",
-            numberOfPeople: 2
-
-        },
-        {
-            hotel: "CENTARA KATA RESORT PHUKET",
-            numberOfPeople: 2
-
-        }
-    ];
-
-    var airportLocation = {
-        lat: 8.111195,
-        lng: 98.306824
-    }
-    var map;
-    var service;
-    var infowindow;
-    function initMap() {
-        //center of a Phucket
-        var phucket = new google.maps.LatLng(7.949229, 98.337);
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: phucket,
-            zoom: 12
-        });
-        infoWindow = new google.maps.InfoWindow();
-        service = new google.maps.places.PlacesService(map);
-        for (var i = 0; i < input.length; i++) {
-            var request = {
-                location: phucket,
-                query: input[i].hotel,
-            };
-            search(request, input[i].numberOfPeople);
-        }
-    }
-    function search(request, numberOfPeople) {
-        countOfPeople += numberOfPeople;
-        service.textSearch(request, function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    addMarker(results[i], numberOfPeople);
-                }
-            }
-        });
-    }
-    var places = [];
-    function addMarker(place, numberOfPeople) {
-        places.push({
-            place: place,
-            numberOfPeople: numberOfPeople
-        });
-        var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            icon: {
-                url: 'http://maps.gstatic.com/mapfiles/circle.png',
-                anchor: new google.maps.Point(10, 10),
-                scaledSize: new google.maps.Size(10, 17)
-            },
-            numberOfPeople: numberOfPeople
-
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            service.getDetails(place, function (result, status) {
-                if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                    console.error(status);
-                    return;
-                }
-                infoWindow.setContent(result.name + "<br/>" + "Number of a people: " + marker.numberOfPeople);
-                infoWindow.open(map, marker);
-            });
-        });
-    }
-
-
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 </script>
 
 </body>
-</html>
 
+</html>

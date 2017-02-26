@@ -1,11 +1,110 @@
+html {
+    height: 100%;
+}
+
+.height100 {
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* Toggle Styles */
+
+#wrapper {
+    height: 100%;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 300px;
+}
+
+#sidebar-wrapper {
+    border-right: 1px solid #707070;
+    z-index: 1000;
+    position: fixed;
+    left: 300px;
+    width: 0;
+    height: 100%;
+    margin-left: -300px;
+    overflow-y: auto;
+    background: #fafafa;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 300px;
+}
+
+#page-content-wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -300px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 300px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@media (min-width: 768px) {
+    #wrapper {
+        padding-left: 300px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 300px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
 body {
     margin: 0;
 }
 
 #map {
-    height: 760px;
-    position: relative;
+    height: 100%;
     width: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
 }
 
 .maps-frame {
@@ -39,4 +138,129 @@ p.top-desc {
 
 p.bottom-desc {
     padding: 0em 1em 1em 1em;
+}
+
+#menu-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.map {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.head {
+    line-height: 35px;
+    font-size: 17px;
+    border-left: 4px solid #f76c60;
+    background-color: #ffffff;
+    padding-left: 10px;
+    color: #909090;
+}
+
+.collapse-href {
+    display: block;
+    width: 100%;
+
+}
+
+.collapse-body {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.hotels .collapse-body a {
+    font-size: 12px;
+
+}
+
+.badge {
+    background-color: #f76c60;
+}
+
+/*Vertical Steps*/
+.list-group.vertical-steps {
+    padding-left: 10px;
+}
+
+.list-group.vertical-steps .list-group-item {
+    border: none;
+    border-left: 3px solid #ece5dd;
+    box-sizing: border-box;
+    border-radius: 0;
+    counter-increment: step-counter;
+    padding: 0px 0px 20px 20px;
+}
+
+.list-group.vertical-steps .list-group-item.active {
+    background-color: transparent;
+    color: inherit;
+}
+
+.list-group.vertical-steps .list-group-item:last-child {
+    border-left: 3px solid transparent;
+    padding-bottom: 0;
+}
+
+.list-group.vertical-steps .list-group-item::before {
+    border-radius: 50%;
+    color: #555;
+    content: counter(step-counter);
+    display: inline-block;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    margin-left: -35px;
+    text-align: center;
+    width: 25px;
+}
+
+.list-group.vertical-steps .list-group-item span,
+.list-group.vertical-steps .list-group-item a {
+    display: block;
+    overflow: hidden;
+    padding-top: 2px;
+}
+
+/*Active/ Completed States*/
+.list-group.vertical-steps .list-group-item.active::before {
+    background-color: #f76c60;
+    color: #fff;
+}
+
+.list-group.vertical-steps .list-group-item.completed {
+    border-left: 3px solid #f76c60;
+}
+
+.list-group.vertical-steps .list-group-item.completed::before {
+    background-color: #f76c60;
+    color: #fff;
+}
+
+.list-group.vertical-steps .list-group-item.completed:last-child {
+    border-left: 3px solid transparent;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #f76c60;
+}
+
+div:hover div.child {
+    background: #006600;
+}
+
+a.list-group-item {
+    border-left: 3px inherit;
+}
+
+a.list-group-item:focus, a.list-group-item:hover {
+    background-color: #ffffff;
+    z-index: 2;
+    border-color: #f76c60;
 }

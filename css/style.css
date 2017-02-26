@@ -40,3 +40,7 @@ p.top-desc {
 p.bottom-desc {
     padding: 0em 1em 1em 1em;
 }
+
+.map {
+    padding: 0!important;
+}
